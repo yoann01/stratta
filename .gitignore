@@ -14,7 +14,7 @@ extras/
 /external/vcpkg/downloads/
 /external/vcpkg/packages/
 /external/vcpkg/installed/
-
+.vs
 
 ################################
 ############ C/C++ #############

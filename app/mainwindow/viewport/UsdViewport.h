@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-#include <pxr/pxr.h>
+
 
 // Forward-declare the USD classes
 PXR_NAMESPACE_OPEN_SCOPE

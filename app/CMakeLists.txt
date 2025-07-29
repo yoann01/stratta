@@ -20,6 +20,8 @@ set(QRC_SOURCE_FILES
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 
+
+
 qt_add_resources(APP_RESOURCES
     ${QRC_SOURCE_FILES}
 )
@@ -30,11 +32,14 @@ qt_add_executable(${EXECUTABLE_NAME}
     ${APP_RESOURCES}
 )
 
-find_package(pxr REQUIRED)
-find_package(MaterialX)
+# === Include paths ===
+target_include_directories(${EXECUTABLE_NAME} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../
+    ${PXR_INCLUDE_DIRS}
+)
 
-
-
+# === Compile options ===
 target_compile_definitions(${EXECUTABLE_NAME} PRIVATE
     NOMINMAX
     WIN32_LEAN_AND_MEAN
@@ -49,9 +54,6 @@ if(MSVC)
 endif()
 
 
-target_include_directories(${EXECUTABLE_NAME} PRIVATE 
-    ${PXR_INCLUDE_DIRS}
-)
 
 # === Link libraries ===
 target_link_libraries(
@@ -70,60 +72,18 @@ target_link_libraries(
         Qt6::OpenGLWidgets
         Qt6::Svg
 
-        TBB::tbb
-
+        # Qlementine
         qlementine
         qlementine-icons
 
+        # USD libraries
         ${PXR_LIBRARIES}
-)
 
+        #tbb
+        TBB::tbb
 
-# === POST_BUILD ===
-add_custom_command(TARGET ${EXECUTABLE_NAME}
-    POST_BUILD
-
-    COMMAND ${CMAKE_COMMAND} -E echo "=== Copying extras ==="
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/extras"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different 
-        "${CMAKE_HOME_DIRECTORY}/extras" 
-        "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/extras"
-
-    # Copy USD plugins to the correct location
-    COMMAND ${CMAKE_COMMAND} -E echo "=== Setting up USD plugins ==="
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/lib/usd"
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/bin/usd"
-    
-
-
-     COMMAND ${CMAKE_COMMAND} -E echo "Path to lib: ${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/lib/usd"
-     COMMAND ${CMAKE_COMMAND} -E echo "Path to bin: ${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/bin/usd"
-    COMMAND ${CMAKE_COMMAND} -E echo "Path to plugin: ${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/plugin"
-
-
-
-    # Copy plugin definitions
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/lib/usd"
-        "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/lib/usd"
-    
-    # Copy plugin implementations  
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/bin/usd"
-        "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/bin/usd"
-
-
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/bin"
-        "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/"
-
-    # Also copy any plugin libraries from the main lib directory
-    COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
-        "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/plugin"
-        "$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/plugin"
-        
-    # Set environment variable for debugging
-    COMMAND ${CMAKE_COMMAND} -E echo "Set PXR_PLUGINPATH_NAME to: $<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/lib/usd"
+        #python
+        Python3::Python
 
 )
 

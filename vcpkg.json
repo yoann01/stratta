@@ -3,24 +3,6 @@
   "version": "0.1.0",
   "dependencies": [
     "nlohmann-json",
-    "spdlog",
-    {
-      "name": "tbb"
-    },
-    {
-      "name": "usd",
-      "features": [
-        "vulkan",
-        "imaging",
-        "openimageio",
-        "materialx"
-      ]
-    }
-  ],
-  "overrides": [
-    {
-      "name": "tbb",
-      "version-string": "2020_U3#8"
-    }
+    "spdlog"
   ]
 }

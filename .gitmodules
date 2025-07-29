@@ -1,9 +1,9 @@
-[submodule "external/vcpkg"]
-	path = external/vcpkg
-	url = https://github.com/microsoft/vcpkg.git
 [submodule "external/qlementine"]
 	path = external/qlementine
 	url = https://github.com/oclero/qlementine
 [submodule "external/qlementine-icons"]
 	path = external/qlementine-icons
 	url = https://github.com/oclero/qlementine-icons.git
+[submodule "external/vcpkg"]
+	path = external/vcpkg
+	url = https://github.com/microsoft/vcpkg.git
