@@ -1,0 +1,55 @@
+{
+  "version": 4,
+
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+
+  "configurePresets": [
+    {
+      "name": "default",
+      "hidden": true,
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "architecture": "x64",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/external/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.9.1/msvc2022_64",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG": "${sourceDir}/out/bin/debug",
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE": "${sourceDir}/out/bin/release",
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO": "${sourceDir}/out/bin/relwithdebinfo",
+        "CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL": "${sourceDir}/out/bin/minsizerel"
+      }
+    },
+    {
+      "name": "windows-debug",
+      "inherits": "default",
+      "description": "Build Debug with Visual Studio 2022 x64"
+    },
+    {
+      "name": "windows-release",
+      "inherits": "default",
+      "description": "Build Release with Visual Studio 2022 x64"
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "build-debug",
+      "configurePreset": "windows-debug",
+      "description": "Build the project in Debug mode",
+      "configuration": "Debug"
+    },
+    {
+      "name": "build-release",
+      "configurePreset": "windows-release",
+      "description": "Build the project in Release mode",
+      "configuration": "Release"
+    }
+  ]
+}

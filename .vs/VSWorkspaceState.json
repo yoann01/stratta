@@ -1,0 +1,19 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Ordinateur local": [
+      "out\\build\\windows-debug",
+      "out\\install\\windows-debug",
+      "out\\build\\windows-release",
+      "out\\install\\windows-release"
+    ]
+  },
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\main",
+    "\\app\\mainwindow",
+    "\\app\\mainwindow\\viewport"
+  ],
+  "SelectedNode": "\\out",
+  "PreviewInSolutionExplorer": false
+}
