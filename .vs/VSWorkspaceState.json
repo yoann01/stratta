@@ -14,5 +14,6 @@
     "\\app\\mainwindow",
     "\\app\\mainwindow\\viewport"
   ],
+  "SelectedNode": "\\app\\mainwindow\\viewport\\UsdViewport.cpp",
   "PreviewInSolutionExplorer": false
 }

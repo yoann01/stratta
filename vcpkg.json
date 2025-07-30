@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "dependencies": [
     "nlohmann-json",
-    "spdlog"
+    "spdlog",
+    {
+      "name": "tbb"
+    },
+    "opengl",
+    "glew",
+    "glfw3"
+  ],
+  "overrides": [
+    {
+      "name": "tbb",
+      "version-string": "2020_U3#8"
+    }
   ]
 }

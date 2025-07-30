@@ -78,12 +78,12 @@ target_link_libraries(
 
         # USD libraries
         ${PXR_LIBRARIES}
-
+        OpenGL::GL
+        GLEW::GLEW
         #tbb
         TBB::tbb
 
-        #python
-        Python3::Python
+
 
 )
 

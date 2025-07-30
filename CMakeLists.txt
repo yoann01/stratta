@@ -42,49 +42,8 @@ if(ENABLE_WARNINGS)
 endif()
 
 
-# === PYTHON ===
-# -- Manually define Python3 if using NVIDIA USD's internal Python distro --
-set(Python3_ROOT_DIR "${CMAKE_SOURCE_DIR}/../USD/python")
-set(Python3_EXECUTABLE "${Python3_ROOT_DIR}/python.exe")
-set(Python3_LIBRARY "${Python3_ROOT_DIR}/libs/python311.lib")
-set(Python3_INCLUDE_DIR "${Python3_ROOT_DIR}/include")
-
-# Force CMake to use the manually specified Python
-set(Python3_FIND_REGISTRY NEVER)
-set(Python3_FIND_STRATEGY LOCATION)
-
-
-message(STATUS "Using Python from: ${Python3_EXECUTABLE}")
-message(STATUS "Python include dir: ${Python3_INCLUDE_DIR}")
-message(STATUS "Python library: ${Python3_LIBRARY}")
-
-
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-
-
-# === TBB ===
-set(TBB_ROOT "${CMAKE_SOURCE_DIR}/../USD")
-set(TBB_INCLUDE_DIR "${TBB_ROOT}/include")
-set(TBB_LIBRARY "${TBB_ROOT}/lib/tbb.lib")
-
-# Affichage
-message(STATUS "TBB root install dir: ${TBB_ROOT}")
-message(STATUS "TBB include dirs: ${TBB_INCLUDE_DIR}")
-message(STATUS "TBB lib dirs: ${TBB_LIBRARY}")
-
-# Déclaration manuelle d'une target IMPORTED
-add_library(TBB::tbb UNKNOWN IMPORTED)
-set_target_properties(TBB::tbb PROPERTIES
-    IMPORTED_LOCATION "${TBB_LIBRARY}"
-    INTERFACE_INCLUDE_DIRECTORIES "${TBB_INCLUDE_DIR}"
-)
-
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/../USD/lib/cmake/TBB")
-
-# === USD ===
-# IMPORTANT: set correct path to pxrConfig.cmake from NVIDIA USD distro
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${CMAKE_SOURCE_DIR}/../USD")
-
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
 find_package(pxr CONFIG REQUIRED)
 
 message(STATUS "USD include dirs: ${PXR_INCLUDE_DIRS}")
